@@ -12,11 +12,6 @@
 
 //Announce winner
 
-//function to draw cards
-//gameModes
-//function jsut for the dealer
-//function to compare cards
-
 // Get a random index ranging from 0 (inclusive) to max (exclusive).
 var getRandomIndex = function (max) {
   return Math.floor(Math.random() * max);
@@ -71,6 +66,10 @@ var makeDeck = function () {
       // If rank is 1, 11, 12, or 13, set cardName to the ace or face card's name
       if (cardName == 1) {
         cardName = "ace";
+        rankCounter = 1;
+      } else if (cardName == 1) {
+        cardname == "ace";
+        rankCounter = 11;
       } else if (cardName == 11) {
         cardName = "jack";
         rankCounter = 10;
@@ -141,6 +140,14 @@ var sumUserHand = function () {
     //console.log(userTotal);
     sumUserHandCounter += 1;
   }
+  for (i = 0; i < userHand.length; i += 1) {
+    if (userHand[i].name == "ace" && userTotal < 21) {
+      userTotal += 10;
+    }
+    if (userHand[i].name == "ace" && userTotal > 21) {
+      userTotal -= 11;
+    }
+  }
   return Number(userTotal);
 };
 
@@ -152,6 +159,14 @@ var sumComputerHand = function () {
     computerTotal += computerHand[sumComputerHandCounter].rank;
     //console.log(ComputerTotal);
     sumComputerHandCounter += 1;
+  }
+  for (i = 0; i < computerHand.length; i += 1) {
+    if (computerHand[i].name == "ace" && userTotal < 21) {
+      computerTotal += 10;
+    }
+    if (computerHand[i].name == "ace" && userTotal < 21) {
+      computerTotal -= 10;
+    }
   }
   //dont need message for self?
   return Number(computerTotal);
@@ -215,6 +230,14 @@ var checkWinner = function () {
   }
 };
 
+//Ace Logic???
+// how does a human choose between 1 or 11.
+//Ace by default = 11
+//So if my total hand > 21, turn ace into 1 (By deducting total by 10?, so make ace 11 by default?).
+//Porter example: If total non aces less than...then ace == something.
+//if (sumUserHand > 21){
+
+//}
 var gameMode = `DRAW_MODE`;
 
 var main = function (input) {
@@ -281,7 +304,3 @@ var main = function (input) {
     }
   }
 };
-
-//dealer draw
-//compare
-//announce winner
